@@ -29,7 +29,7 @@ class MovieService {
 
   List<MovieModel> topRatedMovieList = [];
 
-  Future<void> loadMovieList() async {
+  Future<void> loadTopRatedMovieList() async {
     final url = Uri.parse(
       '${base_url}/movie/top_rated?language=${language}&region=${region}&page=1',
     );
@@ -43,5 +43,46 @@ class MovieService {
           return MovieModel.fromJson(e);
         })
         .toList();
+  }
+
+  List<MovieModel> nowPlayingMovieList = [];
+
+  Future<void> loadPlayingMovieList() async {
+    final url = Uri.parse(
+      '${base_url}/movie/now_playing?language=${language}&region=${region}&page=1',
+    );
+    final response = await Client().get(
+      url,
+      headers: {'Authorization': 'Bearer ${api_key}'},
+    );
+
+    nowPlayingMovieList =
+        (jsonDecode(response.body)['results'] as List<dynamic>).map((e) {
+          return MovieModel.fromJson(e);
+        }).toList();
+  }
+
+  List<MovieModel> recentlyReleasedMovieList = [];
+
+  Future<void> loadRecentlyReleasedMovieList() async {
+    final url = Uri.parse('${base_url}/movie/now_playing?page=1');
+
+    final response = await Client().get(url, headers: {'Authorization': 'Bearer ${api_key}'},);
+
+    recentlyReleasedMovieList = (jsonDecode(response.body)['results'] as List<dynamic>).map((e) {
+      return MovieModel.fromJson(e);
+    }).toList();
+  }
+
+  List<MovieModel> upcomingMovieList = [];
+
+  Future<void> loadUpcomingMovieList() async {
+    final url = Uri.parse('${base_url}/movie/upcoming?language=${language}&region=${region}&page=1');
+    
+    final response = await Client().get(url, headers: {'Authorization': 'Bearer ${api_key}'},);
+
+    upcomingMovieList = (jsonDecode(response.body)['results'] as List<dynamic>).map((e) {
+      return MovieModel.fromJson(e);
+    }).toList();
   }
 }

@@ -5,7 +5,7 @@ import 'package:hw1/screens/search_screen.dart';
 
 import '../etc/color_set.dart';
 import '../etc/widget/custom_bottom_navigation_bar.dart';
-import 'comming_soon_screen.dart';
+import 'coming_soon_screen.dart';
 import 'download_screen.dart';
 import 'home_screen.dart';
 
@@ -28,7 +28,7 @@ class _MainScreenState extends State<MainScreen> {
   Widget build(BuildContext context) {
     final List<Widget> pages = [
       const HomeScreen(),
-      const CommingSoonScreen(),
+      const ComingSoonScreen(),
       const DownloadScreen(),
       const SearchScreen(),
       const ProfileScreen(),
